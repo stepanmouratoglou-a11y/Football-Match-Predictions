@@ -1,6 +1,12 @@
 import streamlit as st
+from dotenv import load_dotenv
+import os
 import requests
 
+load_dotenv()
+API_URL=os.getenv("API_URL")
+if not API_URL:
+    st.error("API not found")
 st.title("Predict the outcome of your favourite club's next game!")
 
 
@@ -51,7 +57,7 @@ elif st.button("Predict"):
     }
     with st.spinner("Predicting..."):
         try:
-            response = requests.post(api_url, json=payload)
+            response = requests.post(API_URL, json=payload)
             
             if response.status_code == 200:
                 data = response.json()

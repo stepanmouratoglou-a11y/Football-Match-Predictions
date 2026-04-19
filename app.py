@@ -36,7 +36,7 @@ TEAMS = {
     ]
 }
 
-league = st.selectbox("Choose League", list(TEAMS.keys()))
+league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'])
 col1, col2 = st.columns(2)
 
 with col1:

@@ -4,11 +4,6 @@ import requests
 api_url="https://football-predictions-api-ope0.onrender.com/docs#/default/MakePrediction_predict_post"
 st.title("Predict the outcome of your favourite club's next game!")
 
-league = st.selectbox(
-    "Επίλεξε Πρωτάθλημα", 
-    ["Premier League", "LaLiga", "Greek Super League", "Bundesliga"]
-)
-
 
 TEAMS = {
     "Premier League": [

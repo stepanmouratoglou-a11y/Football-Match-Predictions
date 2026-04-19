@@ -52,7 +52,7 @@ elif st.button("Predict"):
     }
     with st.spinner("Predicting..."):
         try:
-            response = requests.post(API_URL, json=payload)
+            response = requests.post(api_url, json=payload)
             
             if response.status_code == 200:
                 data = response.json()

@@ -5,11 +5,10 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 
-try:
-    rf_model=joblib.load('Models/RFClassifier_PL.pkl')## Premier League
-    XGBoost_model=joblib.load('Models/XGBClassifier_PL.pkl')## Premier League
-except:
-   raise HTTPException(detail="Something went wrong with the PL Files")
+
+rf_model=joblib.load('Models/RFClassifier_PL.pkl')## Premier League
+XGBoost_model=joblib.load('Models/XGBClassifier_PL.pkl')## Premier League
+
 rf_model_laliga=joblib.load('Models/RFClassifier_LaLiga.pkl')
 XGBoost_model_laliga=joblib.load('Models/XGBClassifier_LaLiga.pkl')
 

@@ -207,7 +207,7 @@ def calculate_team_elo(dataset,league="Premier League"):
         'Ath Bilbao':1690,
         'Osasuna':1650,
         'Espanyol':1670,
-        'Valencia':17001,
+        'Valencia':1701,
         'Girona':1650,
         'Vallecano':1630,
         'Alaves':1560,

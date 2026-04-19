@@ -13,26 +13,26 @@ st.title("Predict the outcome of your favourite club's next game!")
 TEAMS = {
     "Premier League": [
         "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton", 
-        "Chelsea", "Crystal Palace", "Everton", "Fulham", "Ipswich", 
-        "Leicester", "Liverpool", "Man City", "Man United", "Newcastle", 
-        "Nott'm Forest", "Southampton", "Tottenham", "West Ham", "Wolves"
+        "Chelsea", "Crystal Palace", "Everton", "Fulham", "Burnley", 
+        "Sunderland", "Liverpool", "Man City", "Man United", "Newcastle", 
+        "Nott'm Forest", "Leeds", "Tottenham", "West Ham", "Wolves"
     ],
     "LaLiga": [
-        "Alaves", "Ath Bilbao", "Ath Madrid", "Barcelona", "Betis", 
-        "Celta", "Espanol", "Getafe", "Girona", "Las Palmas", 
-        "Leganes", "Mallorca", "Osasuna", "Real Madrid", "Sociedad", 
-        "Sevilla", "Valencia", "Valladolid", "Vallecano", "Villarreal"
+       'Real Madrid','Barcelona','Ath Madrid','Villareal','Betis','Celta',
+        'Real Sociedad','Getafe','Ath Bilbao','Osasuna','Espanyol','Valencia',
+        'Girona','Vallecano','Alaves','Sevilla',
+        'Elche','Mallorca','Levante','Oviedo'
     ],
     "Greek Super League": [
-        "AEK", "Aris", "Asteras Tripolis", "Atromitos", "Athens Kallithea", 
-        "Lamia", "Levadiakos", "OFI", "Olympiakos", "Panathinaikos", 
-        "Panaitolikos", "Panserraikos", "PAOK", "Volos NFC"
+        'Aris','Volos NFC','Olympiakos','AEK','PAOK',
+        'Asteras Tripolis','Larisa','Panserraikos','Levadeiakos',
+        'Kifisia','Atromitos','Panetolikos','Panathinaikos','OFI Crete'
     ],
     "Bundesliga": [
-        "Augsburg", "Bochum", "Bremen", "Dortmund", "Ein Frankfurt", 
-        "Freiburg", "Heidenheim", "Hoffenheim", "Holstein Kiel", "Leipzig", 
-        "Leverkusen", "Mainz", "M'gladbach", "Bayern Munich", "St Pauli", 
-        "Stuttgart", "Union Berlin", "Wolfsburg"
+        'Bayern Munich','RB Leipzig','Ein Frankfurt',
+          'Werder Bremen','Freiburg','Wolfsburg','Leverkusen','Hoffenheim',
+          'Union Berlin','Stuttgard','St Pauli','Dortmund','Mainz',
+          'FC Koln','M\'gladbach','Hamburg','Heidenheim','Augsburg'
     ]
 }
 

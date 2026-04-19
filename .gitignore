@@ -9,6 +9,5 @@ __pycache__/
 Notebooks/
 Website_ignore/
 
-app.py
 
 Models/Clubs Data*.pkl

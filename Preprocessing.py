@@ -30,7 +30,7 @@ def preprocess(dataset):
 
 
     home_stats = dataset[['Date', 'HomeTeam', 'FTHG', 'FTAG','HS','AS','HST',
-                      'AST','HC','AC','HF','AF','HY','AY']].copy()
+                      'AST','HC','AC','HF','AF','HY','AY','Home_Days_Rest']].copy()
     home_stats = home_stats.rename(columns={
     'HomeTeam':'Team',
     'FTHG':'Scored',
@@ -44,14 +44,15 @@ def preprocess(dataset):
     'HF':'Fouls_commited',
     'AF':'Fouls_suffered',
     'HY':'Yellow_Cards',
-    'AY':'Opposing_Yellow_Cards'
+    'AY':'Opposing_Yellow_Cards',
+    'Home_Days_Rest':'Days_Rest'
     })
     home_stats['Wins']= (dataset['FTR']=='H').astype(int)
     home_stats['Draws']=(dataset['FTR']=='D').astype(int)
     home_stats['Losses']=(dataset['FTR']=='A').astype(int)
 
     away_stats = dataset[['Date','AwayTeam','FTAG','FTHG','HS','AS','HST',
-                      'AST','HC','AC','HF','AF','HY','AY']].copy()
+                      'AST','HC','AC','HF','AF','HY','AY','Away_Days_Rest']].copy()
     away_stats = away_stats.rename(columns={
     'AwayTeam':'Team',
     'FTAG':'Scored',
@@ -65,7 +66,8 @@ def preprocess(dataset):
     'HF':'Fouls_suffered',
     'AF':'Fouls_commited',
     'HY':'Opposing_Yellow_Cards',
-    'AY':'Yellow_Cards'
+    'AY':'Yellow_Cards',
+    'Away_Days_Rest':'Days_Rest'
     })
 
     away_stats['Wins']=(dataset['FTR']=='A').astype(int)
@@ -116,6 +118,7 @@ def preprocess(dataset):
     (lambda x: x.shift(1).rolling(window=5).mean())
     team_stats['Avg_corners_conceded_Last_5']=team_stats.groupby('Team')['Corners_conceded'].transform\
     (lambda x: x.shift(1).rolling(window=5).mean())
+
 
     team_stats=team_stats.fillna(0)
 

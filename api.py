@@ -5,10 +5,11 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 
-
-rf_model=joblib.load('Models/RFClassifier_PL.pkl')## Premier League
-XGBoost_model=joblib.load('Models/XGBClassifier_PL.pkl')## Premier League
-
+try:
+    rf_model=joblib.load('Models/RFClassifier_PL.pkl')## Premier League
+    XGBoost_model=joblib.load('Models/XGBClassifier_PL.pkl')## Premier League
+except:
+   raise HTTPException(detail="Something went wrong with the PL Files")
 rf_model_laliga=joblib.load('Models/RFClassifier_LaLiga.pkl')
 XGBoost_model_laliga=joblib.load('Models/XGBClassifier_LaLiga.pkl')
 
@@ -49,8 +50,8 @@ class MatchFeatures(BaseModel):
     league:str
     home_team:str
     away_team:str
-    home_days_rest:float=7
-    away_days_rest:float=7
+    # home_days_rest:float=7
+    # away_days_rest:float=7
 
 @app.post("/predict")
 def MakePrediction(match:MatchFeatures):
@@ -75,8 +76,8 @@ def MakePrediction(match:MatchFeatures):
         home=team_profiles[match.home_team]
         away=team_profiles[match.away_team]
         features=[
-            match.home_days_rest,
-            match.away_days_rest,
+            home['Days_Rest'],
+            away['Days_Rest'],
             home['Avg_Scored_Last_5'],
             home['Avg_Conceded_Last_5'],
             home['Avg_Shots_Last_5'],
@@ -97,8 +98,8 @@ def MakePrediction(match:MatchFeatures):
         home=team_profiles_laliga[match.home_team]
         away=team_profiles_laliga[match.away_team]
         features=[
-            match.home_days_rest,
-            match.away_days_rest,
+            home['Days_Rest'],
+            away['Days_Rest'],
             home['Avg_Scored_Last_5'],
             home['Avg_Conceded_Last_5'],
             home['Avg_Shots_Last_5'],
@@ -121,8 +122,8 @@ def MakePrediction(match:MatchFeatures):
        away=team_profiles_superleague[match.away_team]
 
        features=[
-          match.home_days_rest,
-          match.away_days_rest,
+          home['Days_Rest'],
+          away['Days_Rest'],
           home['Avg_Conceded_Last_5'],
           home['Avg_Shots_Last_5'],
           home['Avg_Shots_Conceded_Last_5'],
@@ -141,8 +142,8 @@ def MakePrediction(match:MatchFeatures):
        home=team_profiles_bundesliga[match.home_team]
        away=team_profiles_bundesliga[match.away_team]
        features=[
-          match.home_days_rest,
-          match.away_days_rest,
+          home['Days_Rest'],
+          away['Days_Rest'],
           home['Avg_Scored_Last_5'],
           home['Avg_Conceded_Last_5'],
           home['Avg_Shots_Last_5'],

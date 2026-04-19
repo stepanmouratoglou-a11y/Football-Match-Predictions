@@ -1,0 +1,14 @@
+/shelf/
+/workspace.xml
+/httpRequests/
+
+.venv/
+__pycache__/
+.idea/
+
+Notebooks/
+Website_ignore/
+
+app.py
+
+Models/Clubs Data*.pkl

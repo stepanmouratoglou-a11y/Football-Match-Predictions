@@ -7,7 +7,8 @@ load_dotenv()
 API_URL=os.getenv("API_URL")
 if not API_URL:
     st.error("API not found")
-st.title("Predict the outcome of your favourite club's next game!")
+st.title("Make a Prediction!")
+st.write("You may wait for 50 seconds on your first prediction...")
 
 
 TEAMS = {

@@ -98,7 +98,7 @@ def MakePrediction(match:MatchFeatures):
         away=team_profiles_laliga[match.away_team]
         features=[
             home['Days_Rest'],
-            away['Days_Rest']
+            away['Days_Rest'],
             home['Avg_Scored_Last_5'],
             home['Avg_Shots_Last_5'],
             home['Wins_Last_5'],
@@ -129,7 +129,7 @@ def MakePrediction(match:MatchFeatures):
           away['Avg_Scored_Last_5'],
           away['Avg_Conceded_Last_5'],
           away['Avg_Shots__Last_5'],
-          away['Avg_Shots_Conceded_Last_5']
+          away['Avg_Shots_Conceded_Last_5'],
           home['ELO Rating'],
           away['ELO Rating']
         ]

@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-api_url="https://football-predictions-api-ope0.onrender.com/docs#/default/MakePrediction_predict_post"
+api_url="https://football-predictions-api-ope0.onrender.com/predict"
 st.title("Predict the outcome of your favourite club's next game!")
 
 

@@ -15,10 +15,10 @@ def xgb_model(X_train,y_train):
     grid_search_xg.fit(X_train,y_train)
 
     model=grid_search_xg.best_estimator_
-    # calibrated_XG=CalibratedClassifierCV(estimator=model,method='sigmoid')
-    # calibrated_XG.fit(X_train,y_train)
+    calibrated_XG=CalibratedClassifierCV(estimator=model,method='sigmoid')
+    calibrated_XG.fit(X_train,y_train)
 
-    return model
+    return calibrated_XG
 
 def make_prediction(model,X_test):
     y_pred=model.predict_proba(X_test)

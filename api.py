@@ -31,8 +31,8 @@ except Exception as e:
 
 def draw_filter(model):
   DRAW_THRESHOLD=0.23
-  DRAW_PENALTY=0.5
-  HOME_AWAY_BONUS=0.25
+  DRAW_PENALTY=0.6
+  HOME_AWAY_BONUS=0.2
 
   filtered=model.copy()
 
@@ -122,7 +122,7 @@ def MakePrediction(match:MatchFeatures):
         input_data=np.array([features])
         y_pred_rf_laliga=rf_model_laliga.predict_proba(input_data)
         y_pred_XG_laliga=XGBoost_model_laliga.predict_proba(input_data)
-        y_pred_laliga=(y_pred_rf_laliga+y_pred_XG_laliga)/2
+        y_pred_laliga=(y_pred_rf_laliga*0.6+y_pred_XG_laliga*0.4)
         y_pred=draw_filter(y_pred_laliga)
     elif match.league.lower()=='greek super league':
        home=team_profiles_superleague[match.home_team]
@@ -149,7 +149,7 @@ def MakePrediction(match:MatchFeatures):
        input_data=np.array([features])
        y_pred_rf_superleague=rf_model_superleague.predict_proba(input_data)
        y_pred_XG_superleague=XGBoost_model_superleague.predict_proba(input_data)
-       y_pred_superleague=(y_pred_rf_superleague+y_pred_XG_superleague)/2
+       y_pred_superleague=(y_pred_rf_superleague*0.6+y_pred_XG_superleague*0.4)
        y_pred=draw_filter(y_pred_superleague)
     elif match.league.lower()=='bundesliga':
        home=team_profiles_bundesliga[match.home_team]
@@ -175,7 +175,7 @@ def MakePrediction(match:MatchFeatures):
        input_data=np.array([features])
        y_pred_rf_bundesliga=rf_model_bundesliga.predict_proba(input_data)
        y_pred_XG_bundesliga=XGBoost_model_bundesliga.predict_proba(input_data)
-       y_pred=(y_pred_rf_bundesliga+y_pred_XG_bundesliga)/2
+       y_pred=(y_pred_rf_bundesliga*0.6+y_pred_XG_bundesliga*0.4)
        y_pred=draw_filter(y_pred)
 
     final_pred=int(np.argmax(y_pred,axis=1)[0])

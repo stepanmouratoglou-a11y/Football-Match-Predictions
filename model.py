@@ -44,11 +44,7 @@ for league_name, file_path in leagues_config.items():
     
     le=LabelEncoder()
     y_encoded=le.fit_transform(y)
-    y_diff=pd.DataFrame({
-        'y before':y,
-        'y after LE':y_encoded
-    })
-    print(y_diff.head(10))
+    
     X_train, X_test, y_train, y_test = train_test_split(
         X, y_encoded, test_size=0.2, shuffle=False
     )

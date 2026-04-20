@@ -42,10 +42,8 @@ col1, col2 = st.columns(2)
 
 with col1:
     home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False)
-    home_rest=7
 with col2:
     away_team=st.selectbox("Away Team",TEAMS[league],accept_new_options=False)
-    away_rest=7
 if home_team==away_team:
     st.warning("Please choose different teams")
 elif st.button("Predict"):

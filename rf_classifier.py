@@ -11,7 +11,7 @@ def rf_model(X_train,y_train):
     'max_depth': [5, 8, 12],
     'min_samples_split': [5, 10, 20],
     'min_samples_leaf': [2, 5, 10],
-    'max_features':[0.5,0.8,None]
+    'max_features':['sqrt',0.8,None]
     }
     grid_search=GridSearchCV(estimator=rf_classifier,
                             param_grid=parameters,

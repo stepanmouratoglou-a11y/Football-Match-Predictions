@@ -39,6 +39,7 @@ leagues_config = {
 os.makedirs('Models', exist_ok=True)
 
 for league_name, file_path in leagues_config.items():
+    print("="*30)
     print(f"{league_name} model creation just started".upper())
     df,X,y,team_stats,teams_elo=dataset(file_path, league_name)
     
@@ -104,6 +105,6 @@ for league_name, file_path in leagues_config.items():
     else:
         joblib.dump(current_team_data,f'Models/Clubs Data_{league_name}.pkl')
         print(f"Club Data of {league_name} saved")
-    print("="*30)
+    
         
 

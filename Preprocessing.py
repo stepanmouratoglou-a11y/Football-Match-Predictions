@@ -8,9 +8,12 @@ def preprocess(dataset):
     except:
        dataset=dataset.drop(columns=['Div','HR','AR','Time'])
 
+    
     dataset['Date'] = pd.to_datetime(dataset['Date'], format='%d/%m/%Y')
     dataset['Month']=dataset['Date'].dt.month
     dataset['Day']=dataset['Date'].dt.dayofweek
+    
+    
 
     home_matches=dataset[['Date','HomeTeam']].rename(columns={'HomeTeam':'Team'})
     away_matches=dataset[['Date','AwayTeam']].rename(columns={'AwayTeam':'Team'})
@@ -156,6 +159,7 @@ def preprocess(dataset):
     'Losses_Last_5':'Away_Losses_Last_5'
     }).drop(columns=['Team'])
 
+    dataset=dataset.copy()
     return dataset,team_stats
 
 def expected_probability(elo_a,elo_b):

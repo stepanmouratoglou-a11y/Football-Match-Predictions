@@ -49,9 +49,9 @@ class MatchFeatures(BaseModel):
     league:str
     home_team:str
     away_team:str
-    # home_days_rest:float=7
-    # away_days_rest:float=7
 
+
+   
 @app.post("/predict")
 def MakePrediction(match:MatchFeatures):
     
@@ -75,18 +75,22 @@ def MakePrediction(match:MatchFeatures):
         home=team_profiles[match.home_team]
         away=team_profiles[match.away_team]
         features=[
-            home['Days_Rest'],
-            away['Days_Rest'],
-            home['Avg_Scored_Last_5'],
-            home['Avg_Conceded_Last_5'],
-            home['Avg_Shots_Last_5'],
-            home['Avg_Shots_Conceded_Last_5'],
-            away['Avg_Scored_Last_5'],
-            away['Avg_Conceded_Last_5'],
-            away['Avg_Shots_Last_5'],
-            away['Avg_Shots_Conceded_Last_5'],
-            home['ELO Rating'],
-            away['ELO Rating']
+          home['Days_Rest'],
+          away['Days_Rest'],
+          home['Avg_Scored_Last_5'],
+          home['Avg_Conceded_Last_5'],
+          home['Avg_Shots_Last_5'],
+          home['Avg_Shots_Conceded_Last_5'],
+          home['Wins_Last_5'],
+          home['Losses_Last_5'],
+          away['Avg_Scored_Last_5'],
+          away['Avg_Conceded_Last_5'],
+          away['Avg_Shots_Last_5'],
+          away['Avg_Shots_Conceded_Last_5'],
+          away['Wins_Last_5'],
+          away['Losses_Last_5'],
+          home['ELO Rating'],
+          away['ELO Rating']
         ]
         input_data=np.array([features])
         y_pred_rf=rf_model.predict_proba(input_data)
@@ -97,14 +101,22 @@ def MakePrediction(match:MatchFeatures):
         home=team_profiles_laliga[match.home_team]
         away=team_profiles_laliga[match.away_team]
         features=[
-            home['Days_Rest'],
-            home['Avg_Scored_Last_5'],
-            home['Avg_Shots_Last_5'],
-            home['Avg_Shots_Conceded_Last_5'],
-            away['Avg_Shots_Last_5'],
-            away['Wins_Last_5'],
-            home['ELO Rating'],
-            away['ELO Rating']
+          home['Days_Rest'],
+          away['Days_Rest'],
+          home['Avg_Scored_Last_5'],
+          home['Avg_Conceded_Last_5'],
+          home['Avg_Shots_Last_5'],
+          home['Avg_Shots_Conceded_Last_5'],
+          home['Wins_Last_5'],
+          home['Losses_Last_5'],
+          away['Avg_Scored_Last_5'],
+          away['Avg_Conceded_Last_5'],
+          away['Avg_Shots_Last_5'],
+          away['Avg_Shots_Conceded_Last_5'],
+          away['Wins_Last_5'],
+          away['Losses_Last_5'],
+          home['ELO Rating'],
+          away['ELO Rating']
         ]
 
         input_data=np.array([features])
@@ -123,10 +135,14 @@ def MakePrediction(match:MatchFeatures):
           home['Avg_Conceded_Last_5'],
           home['Avg_Shots_Last_5'],
           home['Avg_Shots_Conceded_Last_5'],
+          home['Wins_Last_5'],
+          home['Losses_Last_5'],
           away['Avg_Scored_Last_5'],
           away['Avg_Conceded_Last_5'],
           away['Avg_Shots_Last_5'],
           away['Avg_Shots_Conceded_Last_5'],
+          away['Wins_Last_5'],
+          away['Losses_Last_5'],
           home['ELO Rating'],
           away['ELO Rating']
         ]
@@ -145,13 +161,17 @@ def MakePrediction(match:MatchFeatures):
           home['Avg_Conceded_Last_5'],
           home['Avg_Shots_Last_5'],
           home['Avg_Shots_Conceded_Last_5'],
+          home['Wins_Last_5'],
+          home['Losses_Last_5'],
           away['Avg_Scored_Last_5'],
           away['Avg_Conceded_Last_5'],
           away['Avg_Shots_Last_5'],
           away['Avg_Shots_Conceded_Last_5'],
+          away['Wins_Last_5'],
+          away['Losses_Last_5'],
           home['ELO Rating'],
           away['ELO Rating']
-       ]
+        ]
        input_data=np.array([features])
        y_pred_rf_bundesliga=rf_model_bundesliga.predict_proba(input_data)
        y_pred_XG_bundesliga=XGBoost_model_bundesliga.predict_proba(input_data)

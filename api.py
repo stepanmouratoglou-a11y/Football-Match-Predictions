@@ -145,7 +145,7 @@ def MakePrediction(match:MatchFeatures):
           home['Avg_Conceded_Last_5'],
           home['Avg_Shots_Last_5'],
           home['Avg_Shots_Conceded_Last_5'],
-          home['Wins_Last_5'],
+          home['Avg_Wins_Last_5'],
           away['Avg_Scored_Last_5'],
           away['Avg_Conceded_Last_5'],
           away['Avg_Shots_Last_5'],
@@ -172,8 +172,8 @@ def MakePrediction(match:MatchFeatures):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Επιτρέπει συνδέσεις από οποιοδήποτε website
+    allow_origins=["*"],
     allow_credentials=False,
-    allow_methods=["*"],  # Επιτρέπει GET, POST κτλ
+    allow_methods=["*"],
     allow_headers=["*"],
 )

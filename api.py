@@ -30,8 +30,8 @@ except Exception as e:
     print("File of Club Data was not found ")
 
 def draw_filter(model):
-  DRAW_THRESHOLD=0.25
-  DRAW_PENALTY=0.5
+  DRAW_THRESHOLD=0.21
+  DRAW_PENALTY=0.7
   HOME_AWAY_BONUS=0.15
 
   filtered=model.copy()

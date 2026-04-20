@@ -15,7 +15,7 @@ def xgb_model(X_train,y_train):
     grid_search_xg.fit(X_train,y_train)
 
     model=grid_search_xg.best_estimator_
-    calibrated_XG=CalibratedClassifierCV(estimator=classifier,method='sigmoid')
+    calibrated_XG=CalibratedClassifierCV(estimator=model,method='sigmoid')
     calibrated_XG.fit(X_train,y_train)
 
     return calibrated_XG

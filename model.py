@@ -14,8 +14,8 @@ def dataset(path,league):
         dataset=pd.read_csv(path).iloc[:,:24]
     else:
         dataset=pd.read_csv(path).iloc[:,:23]
-    dataset,team_stats=Preprocessing.preprocess(dataset)
-    dataset,teams_elo=Preprocessing.calculate_team_elo(dataset,league)
+    dataset,team_stats,teams_elo=Preprocessing.preprocess(dataset,league)
+    dataset['ELO_Diff']=dataset['Home_ELO_Score']-dataset['Away_ELO_Score']
 
     dataset=dataset.sort_values('Date')
     dataset=dataset.drop(columns=['Date','FTAG','FTHG','HTR','HS',
@@ -94,7 +94,6 @@ for league_name, file_path in leagues_config.items():
             'Avg_Shots_Conceded_Last_5':team_data['Avg_Shots_Conceded_Last_5'],
             'Wins_Last_5':team_data['Wins_Last_5'],
             'Losses_Last_5':team_data['Losses_Last_5']
-
         }
     if league_name=='Premier League':
         joblib.dump(current_team_data,'Models/Clubs Data_PL.pkl')

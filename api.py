@@ -30,9 +30,9 @@ except Exception as e:
     print("File of Club Data was not found ")
 
 def draw_filter(model):
-  DRAW_THRESHOLD=0.21
-  DRAW_PENALTY=0.7
-  HOME_AWAY_BONUS=0.15
+  DRAW_THRESHOLD=0.23
+  DRAW_PENALTY=0.5
+  HOME_AWAY_BONUS=0.25
 
   filtered=model.copy()
 
@@ -74,6 +74,7 @@ def MakePrediction(match:MatchFeatures):
     if match.league.lower()=='premier league':
         home=team_profiles[match.home_team]
         away=team_profiles[match.away_team]
+        elo_diff=home['ELO Rating']-away['ELO Rating']
         features=[
           home['Days_Rest'],
           away['Days_Rest'],
@@ -90,7 +91,8 @@ def MakePrediction(match:MatchFeatures):
           away['Wins_Last_5'],
           away['Losses_Last_5'],
           home['ELO Rating'],
-          away['ELO Rating']
+          away['ELO Rating'],
+          elo_diff
         ]
         input_data=np.array([features])
         y_pred_rf=rf_model.predict_proba(input_data)
@@ -100,6 +102,7 @@ def MakePrediction(match:MatchFeatures):
     elif match.league.lower()=='laliga':
         home=team_profiles_laliga[match.home_team]
         away=team_profiles_laliga[match.away_team]
+        elo_diff=home['ELO Rating']-away['ELO_Rating']
         features=[
           home['Days_Rest'],
           away['Days_Rest'],
@@ -116,7 +119,8 @@ def MakePrediction(match:MatchFeatures):
           away['Wins_Last_5'],
           away['Losses_Last_5'],
           home['ELO Rating'],
-          away['ELO Rating']
+          away['ELO Rating'],
+          elo_diff
         ]
 
         input_data=np.array([features])
@@ -128,6 +132,7 @@ def MakePrediction(match:MatchFeatures):
        home=team_profiles_superleague[match.home_team]
        away=team_profiles_superleague[match.away_team]
 
+       elo_diff=home['ELO Rating']-away['ELO Rating']
        features=[
           home['Days_Rest'],
           away['Days_Rest'],
@@ -144,7 +149,8 @@ def MakePrediction(match:MatchFeatures):
           away['Wins_Last_5'],
           away['Losses_Last_5'],
           home['ELO Rating'],
-          away['ELO Rating']
+          away['ELO Rating'],
+          elo_diff
         ]
        input_data=np.array([features])
        y_pred_rf_superleague=rf_model_superleague.predict_proba(input_data)
@@ -154,6 +160,7 @@ def MakePrediction(match:MatchFeatures):
     elif match.league.lower()=='bundesliga':
        home=team_profiles_bundesliga[match.home_team]
        away=team_profiles_bundesliga[match.away_team]
+       elo_diff=home['ELO Rating']-away['ELO Rating']
        features=[
           home['Days_Rest'],
           away['Days_Rest'],
@@ -170,7 +177,8 @@ def MakePrediction(match:MatchFeatures):
           away['Wins_Last_5'],
           away['Losses_Last_5'],
           home['ELO Rating'],
-          away['ELO Rating']
+          away['ELO Rating'],
+          elo_diff
         ]
        input_data=np.array([features])
        y_pred_rf_bundesliga=rf_model_bundesliga.predict_proba(input_data)

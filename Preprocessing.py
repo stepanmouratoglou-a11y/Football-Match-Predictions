@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 def __init__():
    return
-def preprocess(dataset):
+def preprocess(dataset,league):
     try:
         dataset=dataset.drop(columns=['Div','HR','AR','Time','Referee'])
     except:
@@ -159,8 +159,10 @@ def preprocess(dataset):
     'Losses_Last_5':'Away_Losses_Last_5'
     }).drop(columns=['Team'])
 
+    dataset,teams_elo=calculate_team_elo(dataset,league)
+    dataset['ELO_Diff']=dataset['Home_ELO_Score']-dataset['Away_ELO_Score']
     dataset=dataset.copy()
-    return dataset,team_stats
+    return dataset,team_stats,teams_elo
 
 def expected_probability(elo_a,elo_b):
   return 1/(1+10**((elo_b-elo_a)/400))

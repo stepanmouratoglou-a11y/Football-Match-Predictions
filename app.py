@@ -19,8 +19,8 @@ TEAMS = {
         "Nott'm Forest", "Leeds", "Tottenham", "West Ham", "Wolves"
     ],
     "LaLiga": [
-       'Real Madrid','Barcelona','Ath Madrid','Villareal','Betis','Celta',
-        'Real Sociedad','Getafe','Ath Bilbao','Osasuna','Espanyol','Valencia',
+       'Real Madrid','Barcelona','Ath Madrid','Villarreal','Betis','Celta',
+        'Sociedad','Getafe','Ath Bilbao','Osasuna','Espanol','Valencia',
         'Girona','Vallecano','Alaves','Sevilla',
         'Elche','Mallorca','Levante','Oviedo'
     ],
@@ -37,14 +37,14 @@ TEAMS = {
     ]
 }
 
-league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'])
+league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'],accept_new_options=False)
 col1, col2 = st.columns(2)
 
 with col1:
-    home_team=st.selectbox("Home Team",TEAMS[league])
+    home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False)
     home_rest=7
 with col2:
-    away_team=st.selectbox("Away Team",TEAMS[league])
+    away_team=st.selectbox("Away Team",TEAMS[league],accept_new_options=False)
     away_rest=7
 if home_team==away_team:
     st.warning("Please choose different teams")
@@ -52,9 +52,7 @@ elif st.button("Predict"):
     payload={
         "league": league,
         "home_team": home_team,
-        "away_team": away_team,
-        "home_days_rest": home_rest,
-        "away_days_rest": away_rest
+        "away_team": away_team
     }
     with st.spinner("Predicting..."):
         try:
@@ -69,9 +67,9 @@ elif st.button("Predict"):
                 draw_prob = float(data['Draw_Prob'].replace('%', '')) / 100
                 away_prob = float(data['Away_Win_Prob'].replace('%', '')) / 100
                 
-                st.progress(home_prob, text=f"Home ({home_team}): {data['Home_Win_Prob']}")
-                st.progress(draw_prob, text=f"Χ (Draw): {data['Draw_Prob']}")
-                st.progress(away_prob, text=f"Away ({away_team}): {data['Away_Win_Prob']}")
+                st.progress(home_prob, text=f"{home_team}: {data['Home_Win_Prob']}")
+                st.progress(draw_prob, text=f"Draw: {data['Draw_Prob']}")
+                st.progress(away_prob, text=f"{away_team}: {data['Away_Win_Prob']}")
             
             elif response.status_code == 404:
                 st.error("Club Not Found")

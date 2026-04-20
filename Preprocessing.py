@@ -201,11 +201,11 @@ def calculate_team_elo(dataset,league="Premier League"):
        teams_elo={
         'Real Madrid':1940,
         'Barcelona':1930,
-        'Ath Madrid':1860,
-        'Villareal':1750,
+        'Ath Madrid':1850,
+        'Villarreal':1720,
         'Betis':1730,
         'Celta':1630,
-        'Real Sociedad':1620,
+        'Sociedad':1620,
         'Getafe':1660,
         'Ath Bilbao':1690,
         'Osasuna':1650,
@@ -222,7 +222,7 @@ def calculate_team_elo(dataset,league="Premier League"):
         }
     elif league.lower()=='greek super league':
        teams_elo={
-          'Aris':1560,
+          'Aris':1525,
           'Volos NFC':1375,
           'Olympiakos':1620,
           'AEK':1610,

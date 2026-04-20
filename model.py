@@ -4,7 +4,7 @@ import xgb_classifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
-import numpy
+import numpy as np
 import joblib
 import sys
 import os
@@ -42,9 +42,13 @@ for league_name, file_path in leagues_config.items():
     print(f"{league_name.upper()} model creation just started")
     df,X,y,team_stats,teams_elo=dataset(file_path, league_name)
     
-    le = LabelEncoder()
-    y_encoded = le.fit_transform(y)
-    
+    le=LabelEncoder()
+    y_encoded=le.fit_transform(y)
+    y_diff=pd.DataFrame({
+        'y before':y,
+        'y after LE':y_encoded
+    })
+    print(y_diff.head(10))
     X_train, X_test, y_train, y_test = train_test_split(
         X, y_encoded, test_size=0.2, shuffle=False
     )
@@ -104,5 +108,6 @@ for league_name, file_path in leagues_config.items():
     else:
         joblib.dump(current_team_data,f'Models/Clubs Data_{league_name}.pkl')
         print(f"Club Data of {league_name} saved")
+    print("="*10)
         
 

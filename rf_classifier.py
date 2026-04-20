@@ -4,12 +4,14 @@ from sklearn.model_selection import GridSearchCV
 
 def rf_model(X_train,y_train):
     """Here is the creation of the RF Classifier Model. This function returns the model"""
-    rf_classifier=RandomForestClassifier(criterion='gini',max_features='sqrt')
+    rf_classifier=RandomForestClassifier(max_features='sqrt')
     tscv=TimeSeriesSplit(n_splits=5)
     parameters = {
+    'criterion':['entropy','gini'],
     'n_estimators': [100, 150,200],
     'max_depth': [5, 8, 12],
-    'min_samples_split': [5, 10, 20]
+    'min_samples_split': [5, 10, 20],
+    'min_samples_leaf': [2, 5, 10]
     }
     grid_search=GridSearchCV(estimator=rf_classifier,
                             param_grid=parameters,

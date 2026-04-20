@@ -4,7 +4,7 @@ from sklearn.model_selection import GridSearchCV
 
 def rf_model(X_train,y_train):
     """Here is the creation of the RF Classifier Model. This function returns the model"""
-    rf_classifier=RandomForestClassifier(max_features='sqrt')
+    rf_classifier=RandomForestClassifier()
     tscv=TimeSeriesSplit(n_splits=5)
     parameters = {
     'criterion':['entropy','gini'],

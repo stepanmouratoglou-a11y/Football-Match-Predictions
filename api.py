@@ -145,6 +145,7 @@ def MakePrediction(match:MatchFeatures):
           home['Avg_Conceded_Last_5'],
           home['Avg_Shots_Last_5'],
           home['Avg_Shots_Conceded_Last_5'],
+          home['Wins_Last_5'],
           away['Avg_Scored_Last_5'],
           away['Avg_Conceded_Last_5'],
           away['Avg_Shots_Last_5'],

@@ -169,7 +169,7 @@ def elo_rating(elo_a,expected_probability,result,K=20):
 def k_Calculation(team_elo,matches_played):
   if matches_played>10:
     return 35
-  elif team_elo>1900:
+  elif team_elo>1800:
     return 10
   else:
     return 20
@@ -239,18 +239,18 @@ def calculate_team_elo(dataset,league="Premier League"):
        }
     elif league.lower()=='bundesliga':
        teams_elo={
-          'Bayern Munich':1900,
+          'Bayern Munich':1930,
           'RB Leipzig':1720,
           'Ein Frankfurt':1640,
           'Werder Bremen':1597,
           'Freiburg':1644,
           'Wolfsburg':1585,
-          'Leverkusen':1870,
+          'Leverkusen':1820,
           'Hoffenheim':1672,
           'Union Berlin':1576,
           'Stuttgard':1721,
           'St Pauli':1533,
-          'Dortmund':1843,
+          'Dortmund':1845,
           'Mainz':1631,
           'FC Koln':1529,
           'M\'gladbach':1590,

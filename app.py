@@ -37,7 +37,11 @@ TEAMS = {
           'FC Koln','M\'gladbach','Hamburg','Heidenheim','Augsburg'
     ]
 }
-
+if "home_team" not in st.session_state:
+    st.session_state.home_team = None
+if "away_team" not in st.session_state:
+    st.session_state.away_team = None
+    
 def make_prediction(home_team,away_team,league):
     payload={
         "league": league,
@@ -74,13 +78,7 @@ league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','G
 col1, col2, col3 = st.columns(3)
 
 def swap_teams():
-    if "home_team" in st.session_state and "away_team" in st.session_state:
-        st.session_state.home_team, st.session_state.away_team = st.session_state.away_team, st.session_state.home_team
-        with col1:
-            st.selectbox('Home Team',TEAMS[league],key=2,accept_new_options=False,index=None,placeholder="Select Away Team")
-        with col2:
-            st.selectbox('Away Team',TEAMS[league],key=1,accept_new_options=False,index=None,placeholder="Select Away Team")
-    
+    st.session_state.home_team, st.session_state.away_team = st.session_state.away_team, st.session_state.home_team
 with col1:
     home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False,
     index=None,placeholder="Select Away Team",key=1)

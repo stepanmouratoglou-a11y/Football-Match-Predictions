@@ -2,6 +2,8 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 import requests
+import csv
+import data_collection
 
 load_dotenv()
 API_URL=os.getenv("API_URL")
@@ -37,16 +39,7 @@ TEAMS = {
     ]
 }
 
-league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'],accept_new_options=False)
-col1, col2 = st.columns(2)
-
-with col1:
-    home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False)
-with col2:
-    away_team=st.selectbox("Away Team",TEAMS[league],accept_new_options=False)
-if home_team==away_team:
-    st.warning("Please choose different teams")
-elif st.button("Predict"):
+def make_prediction(home_team,away_team,league):
     payload={
         "league": league,
         "home_team": home_team,
@@ -76,3 +69,25 @@ elif st.button("Predict"):
                 
         except Exception as e:
             st.error("The API is not responding right now. Please try again later.")
+        
+
+league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'],accept_new_options=False)
+col1, col2, col3 = st.columns(3)
+
+def swap_teams():
+    st.session_state.home_team, st.session_state.away_team = st.session_state.away_team, st.session_state.home_team
+with col1:
+    home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False)
+with col2:
+    st.button("Switch",on_click=swap_teams)
+        
+
+with col3:
+    away_team=st.selectbox("Away Team",TEAMS[league],accept_new_options=False)
+
+if home_team==away_team:
+    st.warning("Please choose different teams")
+elif st.button("Predict"):
+    make_prediction(home_team,away_team,league)
+
+

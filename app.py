@@ -150,12 +150,9 @@ with st.expander("Feedback Survey"):
                 'Comments':[comments]
             }
 
-            data=pd.DataFrame(data)
-            current_dir = os.path.dirname(os.path.abspath(__file__))
             file_path = os.path.join(current_dir, 'data.csv')
             if not os.path.isfile('data.csv'):
                 data.to_csv('data.csv',index=False)
             else:
                 data.to_csv('data.csv',mode='a',header=False,index=False)
             
-            st.info(f"Saved to {file_path}")

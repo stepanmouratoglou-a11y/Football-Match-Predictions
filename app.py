@@ -11,13 +11,6 @@ if not API_URL:
 st.title("Make a Prediction!")
 st.write("You may wait for 50 seconds on your first prediction...")
 
-st.text_input("Enter your name if you want!",key='name')
-if 'name' in st.session_state:
-    name=st.session_state.name
-else:
-    name='Anonymous'
-
-st.write(f"### Welcome **{name}** !")
 
 TEAMS = {
     "Premier League": [
@@ -112,47 +105,3 @@ elif st.button("Predict"):
     make_prediction(home_team,away_team,league)
 
 
-
-possible_answers=['Instagram','LinkedIn','Friend','Randomly','Prefer Not To Say']
-
-with st.expander("Feedback Survey"):
-    with st.form("Feedback Form "):
-
-        st.slider('How satisfied were you with this predictions? (Your answer could help us improve our models)',
-          min_value=0,
-          max_value=10,
-          step=1,
-          key='Satisfaction')
-        if 'Satisfaction' in st.session_state:
-            satisfaction=st.session_state.Satisfaction
-        else:
-            satisfaction='Did Not Reply'
-
-        source= st.selectbox('How did you find this page?',possible_answers)
-
-        st.text_input('Do you have any comments?',key='comments')
-
-        if 'comments' in st.session_state:
-            comments=st.session_state.comments
-        else:
-            comments=' '
-
-        submitted=st.form_submit_button("Submit")
-
-        if submitted:
-            st.success(f"Thank you {name} for your feedback. Appreciate it!")
-            data={
-                'Name':[name],
-                'HomeTeam':[home_team],
-                'AwayTeam':[away_team],
-                'Satisfaction':[satisfaction],
-                'Source':[source],
-                'Comments':[comments]
-            }
-
-            file_path = os.path.join(current_dir, 'data.csv')
-            if not os.path.isfile('data.csv'):
-                data.to_csv('data.csv',index=False)
-            else:
-                data.to_csv('data.csv',mode='a',header=False,index=False)
-            

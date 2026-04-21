@@ -102,7 +102,7 @@ def MakePrediction(match:MatchFeatures):
     elif match.league.lower()=='laliga':
         home=team_profiles_laliga[match.home_team]
         away=team_profiles_laliga[match.away_team]
-        elo_diff=home['ELO Rating']-away['ELO_Rating']
+        elo_diff=home['ELO Rating']-away['ELO Rating']
         features=[
           home['Days_Rest'],
           away['Days_Rest'],

@@ -2,8 +2,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 import requests
-import csv
-import data_collection
+
 
 load_dotenv()
 API_URL=os.getenv("API_URL")

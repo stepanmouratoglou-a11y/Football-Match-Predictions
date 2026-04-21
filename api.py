@@ -19,7 +19,7 @@ rf_model_bundesliga=joblib.load('Models/RFClassifier_Bundesliga.pkl')
 XGBoost_model_bundesliga=joblib.load('Models/XGBClassifier_Bundesliga.pkl')
 
 
-app=FastAPI(title='Premier League Predictions',description='This app predicts the results of the premier league'
+app=FastAPI(title='Match Predictions',description='This app predicts the results of the premier league'
                                                            ' according to RF Classifier and XGBoost Classifier')
 try:
     team_profiles=joblib.load('Models/Clubs Data_PL.pkl')
@@ -30,9 +30,9 @@ except Exception as e:
     print("File of Club Data was not found ")
 
 def draw_filter(model):
-  DRAW_THRESHOLD=0.23
+  DRAW_THRESHOLD=0.27
   DRAW_PENALTY=0.5
-  HOME_AWAY_BONUS=0.25
+  HOME_AWAY_BONUS=0.15
 
   filtered=model.copy()
 

@@ -12,6 +12,7 @@ st.title("Make a Prediction!")
 st.write("You may wait for 50 seconds on your first prediction...")
 
 
+
 TEAMS = {
     "Premier League": [
         "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton", 
@@ -37,10 +38,7 @@ TEAMS = {
           'FC Koln','M\'gladbach','Hamburg','Heidenheim','Augsburg'
     ]
 }
-if "home_team" not in st.session_state:
-    st.session_state.home_team = None
-if "away_team" not in st.session_state:
-    st.session_state.away_team = None
+
     
 def make_prediction(home_team,away_team,league):
     payload={
@@ -75,6 +73,10 @@ def make_prediction(home_team,away_team,league):
         
 
 league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'],accept_new_options=False)
+if "home_team" not in st.session_state:
+    st.session_state.home_team = TEAMS[league][0]
+if "away_team" not in st.session_state:
+    st.session_state.away_team = TEAMS[league][1]
 col1, col2, col3 = st.columns(3)
 
 def swap_teams():
@@ -83,6 +85,8 @@ with col1:
     home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False,
     index=None,placeholder="Select Away Team",key=1)
 with col2:
+    st.write(" ")
+    st.write(" ")
     st.button("Switch",on_click=swap_teams,use_container_width=True)
         
 

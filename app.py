@@ -89,7 +89,7 @@ col1, col2, col3 = st.columns(3)
 def swap_teams():
     st.session_state.home_team, st.session_state.away_team = st.session_state.away_team, st.session_state.home_team
 with col1:
-    st.selectbox("Home Team",TEAMS[league],accept_new_options=False,
+    st.selectbox("Home Team",TEAMS[league],
     index=None,placeholder="Select Away Team",key='home_team')
 with col2:
     st.write(" ")
@@ -98,7 +98,7 @@ with col2:
         
 
 with col3:
-    st.selectbox("Away Team",TEAMS[league],accept_new_options=False,
+    st.selectbox("Away Team",TEAMS[league],
     index=None,placeholder="Select Away Team",key='away_team')
 
 home_team=st.session_state.home_team

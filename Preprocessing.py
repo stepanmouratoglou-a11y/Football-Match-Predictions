@@ -173,10 +173,10 @@ def elo_rating(elo_a,expected_probability,result,K=20):
      
 
 def k_Calculation(team_elo,matches_played):
-  if matches_played>10:
-    return 35
-  elif team_elo>1800:
+  if team_elo>1800:
     return 10
+  elif matches_played>20:
+    return 15
   else:
     return 20
 
@@ -206,7 +206,7 @@ def calculate_team_elo(dataset,league="Premier League"):
     elif league.lower()=='laliga':
        teams_elo={
         'Real Madrid':1940,
-        'Barcelona':1930,
+        'Barcelona':1890,
         'Ath Madrid':1850,
         'Villarreal':1720,
         'Betis':1730,
@@ -230,9 +230,9 @@ def calculate_team_elo(dataset,league="Premier League"):
        teams_elo={
           'Aris':1525,
           'Volos NFC':1375,
-          'Olympiakos':1620,
-          'AEK':1610,
-          'PAOK':1610,
+          'Olympiakos':1630,
+          'AEK':1620,
+          'PAOK':1620,
           'Asteras Tripolis':1300,
           'Larisa':1310,
           'Panserraikos':1290,
@@ -240,7 +240,7 @@ def calculate_team_elo(dataset,league="Premier League"):
           'Kifisia':1280,
           'Atromitos':1299,
           'Panetolikos':1278,
-          'Panathinaikos':1530,
+          'Panathinaikos':1550,
           'OFI Crete':1403
        }
     elif league.lower()=='bundesliga':

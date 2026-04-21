@@ -74,15 +74,10 @@ def make_prediction(home_team,away_team,league):
 
 league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'],accept_new_options=False)
 
-try:
-    st.session_state.home_team=home_team
-except:
-    st.session_state['home_team'] = TEAMS[league][0]
-try:
-        st.session_state.away_team=away_team
-except:
-        st.session_state['away_team'] = TEAMS[league][1]
-
+if 'home_team' not in st.session_state:
+    st.session_state.home_team=TEAMS[league][0]
+if 'away_team' not in st.session_state:
+    st.session_state.away_team-TEAMS[league][1]
 
 col1, col2, col3 = st.columns(3)
 

@@ -76,15 +76,21 @@ col1, col2, col3 = st.columns(3)
 def swap_teams():
     if "home_team" in st.session_state and "away_team" in st.session_state:
         st.session_state.home_team, st.session_state.away_team = st.session_state.away_team, st.session_state.home_team
+        with col1:
+            st.selectbox('Home Team',TEAMS[league],key=2,accept_new_options=False,index=None,placeholder="Select Away Team")
+        with col2:
+            st.selectbox('Away Team',TEAMS[league],key=1,accept_new_options=False,index=None,placeholder="Select Away Team")
     
 with col1:
-    home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False)
+    home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False,
+    index=None,placeholder="Select Away Team",key=1)
 with col2:
-    st.button("Switch",on_click=swap_teams)
+    st.button("Switch",on_click=swap_teams,use_container_width=True)
         
 
 with col3:
-    away_team=st.selectbox("Away Team",TEAMS[league],accept_new_options=False)
+    away_team=st.selectbox("Away Team",TEAMS[league],accept_new_options=False,
+    index=None,placeholder="Select Away Team",key=2)
 
 if home_team==away_team:
     st.warning("Please choose different teams")

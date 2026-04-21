@@ -74,7 +74,9 @@ league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','G
 col1, col2, col3 = st.columns(3)
 
 def swap_teams():
-    st.session_state.home_team, st.session_state.away_team = st.session_state.away_team, st.session_state.home_team
+    if "home_team" in st.session_state and "away_team" in st.session_state:
+        st.session_state.home_team, st.session_state.away_team = st.session_state.away_team, st.session_state.home_team
+    
 with col1:
     home_team=st.selectbox("Home Team",TEAMS[league],accept_new_options=False)
 with col2:

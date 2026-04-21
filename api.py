@@ -96,9 +96,9 @@ def MakePrediction(match:MatchFeatures):
         ]
         input_data=np.array([features])
         y_pred_rf=rf_model.predict_proba(input_data)
-        # y_pred_XG=XGBoost_model.predict_proba(input_data)
-        # y_pred_pl=(y_pred_rf+y_pred_XG)/2
-        y_pred=draw_filter(y_pred_rf)
+        y_pred_XG=XGBoost_model.predict_proba(input_data)
+        y_pred_pl=(y_pred_rf+y_pred_XG)/2
+        y_pred=draw_filter(y_pred_pl)
     elif match.league.lower()=='laliga':
         home=team_profiles_laliga[match.home_team]
         away=team_profiles_laliga[match.away_team]
@@ -125,9 +125,9 @@ def MakePrediction(match:MatchFeatures):
 
         input_data=np.array([features])
         y_pred_rf_laliga=rf_model_laliga.predict_proba(input_data)
-        # y_pred_XG_laliga=XGBoost_model_laliga.predict_proba(input_data)
-        # y_pred_laliga=(y_pred_rf_laliga+y_pred_XG_laliga)/2
-        y_pred=draw_filter(y_pred_rf_laliga)
+        y_pred_XG_laliga=XGBoost_model_laliga.predict_proba(input_data)
+        y_pred_laliga=(y_pred_rf_laliga+y_pred_XG_laliga)/2
+        y_pred=draw_filter(y_pred_laliga)
     elif match.league.lower()=='greek super league':
        home=team_profiles_superleague[match.home_team]
        away=team_profiles_superleague[match.away_team]
@@ -154,9 +154,9 @@ def MakePrediction(match:MatchFeatures):
         ]
        input_data=np.array([features])
        y_pred_rf_superleague=rf_model_superleague.predict_proba(input_data)
-    #    y_pred_XG_superleague=XGBoost_model_superleague.predict_proba(input_data)
-    #    y_pred_superleague=(y_pred_rf_superleague+y_pred_XG_superleague)/2
-       y_pred=draw_filter(y_pred_rf_superleague)
+       y_pred_XG_superleague=XGBoost_model_superleague.predict_proba(input_data)
+       y_pred_superleague=(y_pred_rf_superleague+y_pred_XG_superleague)/2
+       y_pred=draw_filter(y_pred_superleague)
     elif match.league.lower()=='bundesliga':
        home=team_profiles_bundesliga[match.home_team]
        away=team_profiles_bundesliga[match.away_team]
@@ -182,9 +182,9 @@ def MakePrediction(match:MatchFeatures):
         ]
        input_data=np.array([features])
        y_pred_rf_bundesliga=rf_model_bundesliga.predict_proba(input_data)
-    #    y_pred_XG_bundesliga=XGBoost_model_bundesliga.predict_proba(input_data)
-    #    y_pred=(y_pred_rf_bundesliga+y_pred_XG_bundesliga)/2
-       y_pred=draw_filter(y_pred_rf_bundesliga)
+       y_pred_XG_bundesliga=XGBoost_model_bundesliga.predict_proba(input_data)
+       y_pred_bundesliga=(y_pred_rf_bundesliga+y_pred_XG_bundesliga)/2
+       y_pred=draw_filter(y_pred_bundesliga)
 
     final_pred=int(np.argmax(y_pred,axis=1)[0])
     points_map={0:f"{match.away_team}",1:"Draw",2:f"{match.home_team}"}

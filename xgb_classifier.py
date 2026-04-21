@@ -5,8 +5,10 @@ from sklearn.calibration import CalibratedClassifierCV
 def xgb_model(X_train,y_train):
     classifier=XGBClassifier(learning_rate=0.01)
     xg_parameters={
-    'n_estimators':[300,400,500,700],
-    'colsample_bytree':[0.8,1]
+    'n_estimators':[300,400,500],
+    'colsample_bytree':[0.6,0.8,1],
+    'max_depth':[5,6,8],
+    'subsample':[0.5,0.6,0.8]
     }
     grid_search_xg=GridSearchCV(estimator=classifier,
                                 param_grid=xg_parameters,

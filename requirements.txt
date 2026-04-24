@@ -6,4 +6,5 @@ xgboost
 joblib
 numpy
 pandas
+pyarrow
 python-dotenv

@@ -29,10 +29,10 @@ def dataset(path,league):
     return dataset,X,y,team_stats,teams_elo,team_performance
 
 leagues_config = {
-    'Premier League':'datasets/E0 (1).csv',
-    'LaLiga':'datasets/SP1.csv',
-    'Bundesliga':'datasets/D1.csv',
-    'Greek Super League':'datasets/G1.csv'
+    'Premier League':'datasets/Raw_Data/E0 (1).csv',
+    'LaLiga':'datasets/Raw_Data/SP1.csv',
+    'Bundesliga':'datasets/Raw_Data/D1.csv',
+    'Greek Super League':'datasets/Raw_Data/G1.csv'
 }
 
 
@@ -42,7 +42,12 @@ for league_name, file_path in leagues_config.items():
     print("="*30)
     print(f"{league_name} model creation just started".upper())
     df,X,y,team_stats,teams_elo,team_performances=dataset(file_path, league_name)
+    df.to_csv(f'datasets/Cleaned_Data/{league_name.lower().replace(' ','_')}_cleaned.csv')
     
+    print()
+    for col in df.columns:
+        print(col,end=", ")
+    print()
     joblib.dump(team_performances,f'Models/Team Performances {league_name}.pkl')
 
     le=LabelEncoder()
@@ -63,21 +68,11 @@ for league_name, file_path in leagues_config.items():
     y_pred_xgb=xgb_classifier.make_prediction(xgb_model, X_test)
     
     
-    if league_name=='Premier League':
-        joblib.dump(rf_model,'Models/RFClassifier_PL.pkl')
-        print(f"RF Model of {league_name} saved")
-        joblib.dump(xgb_model,'Models/XGBClassifier_PL.pkl')
-        print(f"XGB Model of {league_name} saved")
-    elif league_name=='Greek Super League':
-        joblib.dump(rf_model,'Models/RFClassifier_SuperLeague.pkl')
-        print(f"RF Model of {league_name} saved")
-        joblib.dump(xgb_model,'Models/XGBClassifier_SuperLeague.pkl')
-        print(f"XGB Model of {league_name} saved")
-    else:
-        joblib.dump(rf_model,f'Models/RFClassifier_{league_name}.pkl')
-        print(f"RF Model of {league_name} saved")
-        joblib.dump(xgb_model,f'Models/XGBClassifier_{league_name}.pkl')
-        print(f"XGB Model of {league_name} saved")
+    joblib.dump(rf_model,f'Models/RFClassifier_{league_name}.pkl')
+    print(f'RF Model of {league_name.upper()} saved successfully ')
+    joblib.dump(xgb_model,f'Models/XGBClassifier_{league_name}.pkl')
+    print(f'(Calibrated) XG Boost Model of {league_name.upper()} saved successfully')
+
     
     
     all_teams=df['HomeTeam'].unique()
@@ -94,7 +89,9 @@ for league_name, file_path in leagues_config.items():
             'Avg_Shots_Last_5':team_data['Avg_Shots_Last_5'],
             'Avg_Shots_Conceded_Last_5':team_data['Avg_Shots_Conceded_Last_5'],
             'Wins_Last_5':team_data['Wins_Last_5'],
-            'Losses_Last_5':team_data['Losses_Last_5']
+            'Losses_Last_5':team_data['Losses_Last_5'],
+            'Total_Points':team_data['Total_Points'],
+            'Points_Last_5':team_data['Points_Last_5']
         }
     if league_name=='Premier League':
         joblib.dump(current_team_data,'Models/Clubs Data_PL.pkl')

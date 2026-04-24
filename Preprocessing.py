@@ -133,6 +133,14 @@ def preprocess(dataset,league):
     team_stats['Avg_corners_conceded_Last_5']=team_stats.groupby('Team')['Corners_conceded'].transform\
     (lambda x: x.shift(1).rolling(window=5).mean())
 
+    team_stats['Points']=(3*team_stats['Wins'] + team_stats['Draws'])
+    team_stats['Total_Points']=team_stats.groupby('Team')['Points'].transform\
+    (lambda x: x.shift(1).cumsum())
+    team_stats['Total_Points']=team_stats['Total_Points'].fillna(0)
+
+    team_stats['Points_Last_5']=team_stats.groupby('Team')['Points'].transform\
+        (lambda x: x.shift(1).rolling(window=5).sum())
+    team_stats['Points_Last_5']=team_stats['Points_Last_5'].fillna(0)
 
     team_stats=team_stats.fillna(0)
 
@@ -140,7 +148,7 @@ def preprocess(dataset,league):
         team_stats[['Date', 'Team', 'Avg_Scored_Last_5', 'Avg_Conceded_Last_5','Avg_Shots_Last_5',
                 'Avg_Shots_Conceded_Last_5',
                 'Wins_Last_5',
-                'Losses_Last_5']],
+                'Losses_Last_5','Total_Points','Points_Last_5']],
         left_on=['Date', 'HomeTeam'],
         right_on=['Date', 'Team'],
         how='left'
@@ -150,14 +158,16 @@ def preprocess(dataset,league):
     'Avg_Shots_Last_5':'Home_Avg_Shots_Last_5',
     'Avg_Shots_Conceded_Last_5':'Home_Avg_Shots_Conceded_Last_5',
     'Wins_Last_5':'Home_Wins_Last_5',
-    'Losses_Last_5':'Home_Losses_Last_5'
+    'Losses_Last_5':'Home_Losses_Last_5',
+    'Total_Points':'Home_Total_Points',
+    'Points_Last_5':'Home_Points_Last_5'
     }).drop(columns=['Team'])
 
     dataset=dataset.merge(
     team_stats[['Date', 'Team', 'Avg_Scored_Last_5', 'Avg_Conceded_Last_5','Avg_Shots_Last_5',
                 'Avg_Shots_Conceded_Last_5',
                 'Wins_Last_5',
-                'Losses_Last_5']],
+                'Losses_Last_5','Total_Points','Points_Last_5']],
     left_on=['Date', 'AwayTeam'],
     right_on=['Date', 'Team'],
     how='left'
@@ -167,7 +177,9 @@ def preprocess(dataset,league):
     'Avg_Shots_Last_5':'Away_Avg_Shots_Last_5',
     'Avg_Shots_Conceded_Last_5':'Away_Avg_Shots_Conceded_Last_5',
     'Wins_Last_5':'Away_Wins_Last_5',
-    'Losses_Last_5':'Away_Losses_Last_5'
+    'Losses_Last_5':'Away_Losses_Last_5',
+    'Total_Points':'Away_Total_Points',
+    'Points_Last_5':'Away_Points_Last_5'
     }).drop(columns=['Team'])
 
     dataset,teams_elo=calculate_team_elo(dataset,league)

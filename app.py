@@ -67,7 +67,7 @@ def make_prediction(home_team,away_team,league):
                 st.progress(home_prob, text=f"{home_team}: {data['Home_Win_Prob']}")
                 st.progress(draw_prob, text=f"Draw: {data['Draw_Prob']}")
                 st.progress(away_prob, text=f"{away_team}: {data['Away_Win_Prob']}")
-
+                st.write(f"Scroll to see the season stats of {home_team} and {away_team} ")
                 st.divider()
 
                 st.write(f"### {home_team} vs {away_team} Stats")
@@ -81,7 +81,7 @@ def make_prediction(home_team,away_team,league):
                 "Losses":home_performance.get("Losses"),
                 "Goal Difference":home_performance.get("Goal Difference"),
                 "Goals Per Game":home_performance.get("Goals Per Game"),
-                "Conceded Per Game":away_performance.get("Goals Conceded Per Game")
+                "Conceded Per Game":home_performance.get("Goals Conceded Per Game")
                 }
 
                 away_data={

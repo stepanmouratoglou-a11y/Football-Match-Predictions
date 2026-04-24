@@ -47,8 +47,8 @@ except Exception as e:
 
 def draw_filter(model):
   DRAW_THRESHOLD=0.27
-  DRAW_PENALTY=0.5
-  HOME_AWAY_BONUS=0.15
+  DRAW_PENALTY=0.6
+  HOME_AWAY_BONUS=0.2
 
   filtered=model.copy()
 

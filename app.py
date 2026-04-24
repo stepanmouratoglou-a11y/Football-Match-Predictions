@@ -55,7 +55,6 @@ def make_prediction(home_team,away_team,league):
             
             if response.status_code == 200:
                 data = response.json()
-                st.write(data)
                 home_performance=data['Home Performance']
                 away_performance=data['Away Performance']
                 st.success(f"Winner Prediction: **{data['Prediction']}**")
@@ -109,8 +108,7 @@ def make_prediction(home_team,away_team,league):
                 st.error(f"API Error: Code {response.status_code}")
                 
         except Exception as e:
-            st.error(e)
-            st.exception(e)        
+            st.error("Something went wrong with the API")  
 
 league = st.selectbox("Choose League",['Premier League','LaLiga','Bundesliga','Greek Super League'])
 

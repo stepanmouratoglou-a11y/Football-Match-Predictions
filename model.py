@@ -14,7 +14,7 @@ def dataset(path,league):
         dataset=pd.read_csv(path).iloc[:,:24]
     else:
         dataset=pd.read_csv(path).iloc[:,:23]
-    dataset,team_stats,teams_elo=Preprocessing.preprocess(dataset,league)
+    dataset,team_stats,teams_elo,team_performance=Preprocessing.preprocess(dataset,league)
     dataset['ELO_Diff']=dataset['Home_ELO_Score']-dataset['Away_ELO_Score']
 
     dataset=dataset.sort_values('Date')
@@ -26,7 +26,7 @@ def dataset(path,league):
     y=dataset['FTR'].values
 
 
-    return dataset,X,y,team_stats,teams_elo
+    return dataset,X,y,team_stats,teams_elo,team_performance
 
 leagues_config = {
     'Premier League':'datasets/E0 (1).csv',
@@ -41,8 +41,10 @@ os.makedirs('Models', exist_ok=True)
 for league_name, file_path in leagues_config.items():
     print("="*30)
     print(f"{league_name} model creation just started".upper())
-    df,X,y,team_stats,teams_elo=dataset(file_path, league_name)
+    df,X,y,team_stats,teams_elo,team_performances=dataset(file_path, league_name)
     
+    joblib.dump(team_performances,f'Models/Team Performances {league_name}.pkl')
+
     le=LabelEncoder()
     y_encoded=le.fit_transform(y)
     
@@ -83,7 +85,6 @@ for league_name, file_path in leagues_config.items():
 
     for team in all_teams:
         team_data=team_stats[team_stats['Team']==team].iloc[-1]
-
         current_team_data[team]={
             'Team':team,
             'ELO Rating':teams_elo.get(team),

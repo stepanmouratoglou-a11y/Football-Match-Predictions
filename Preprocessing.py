@@ -81,16 +81,27 @@ def preprocess(dataset,league):
     team_performance=all_stats.drop(columns=['Date']).groupby('Team').sum().reset_index()
     total_games=team_performance['Wins']+team_performance['Draws']+team_performance['Losses']
 
-
-    team_performance['Goal_Difference']=team_performance['Scored']-team_performance['Conceded']
-    team_performance['Shots_Per_Game']=team_performance['Shots_made']/total_games
-    team_performance['Corners_Per_Game']=team_performance['Corners_made']/total_games
-    team_performance['SoT_Per_Game']=team_performance['Shots_ontarget_made']/total_games
-    team_performance['Goals_Per_Game']=team_performance['Scored']/total_games
-    team_performance['Goals_Conceded_Per_Game']=team_performance['Conceded']/total_games
-    team_performance['Fouls_commited_Per_Game']=team_performance['Fouls_commited']/total_games
-    team_performance['Shots_Conceded_Per_Game']=team_performance['Shots_Conceded']/total_games
-    team_performance['Yellow_Cards_Per_Game']=team_performance['Yellow_Cards']/total_games
+    
+    team_performance['Goal Difference']=team_performance['Scored']-team_performance['Conceded']
+    team_performance['Shots Per Game']=team_performance['Shots_made']/total_games
+    team_performance['Corners Per Game']=team_performance['Corners_made']/total_games
+    team_performance['SoT Per Game']=team_performance['Shots_ontarget_made']/total_games
+    team_performance['Goals Per Game']=team_performance['Scored']/total_games
+    team_performance['Goals Conceded Per Game']=team_performance['Conceded']/total_games
+    team_performance['Fouls Commited Per Game']=team_performance['Fouls_commited']/total_games
+    
+    team_performance=pd.DataFrame(team_performance)
+    
+    team_performance=team_performance.rename(
+       columns={
+          'Shots_conceded':'Shots Conceded',
+          'Shots_made':'Total Shots',
+          'Shots_ontarget_made':'Shots On Target',
+          'Corners_made':'Corners',
+          'Fouls_Commited':'Fouls Commited',
+          'Yellow_Cards':'Yellow Cards'
+       }
+    )
 
     team_stats = pd.concat([home_stats, away_stats]).sort_values(['Team', 'Date']).reset_index(drop=True)
 
@@ -162,7 +173,7 @@ def preprocess(dataset,league):
     dataset,teams_elo=calculate_team_elo(dataset,league)
     dataset['ELO_Diff']=dataset['Home_ELO_Score']-dataset['Away_ELO_Score']
     dataset=dataset.copy()
-    return dataset,team_stats,teams_elo
+    return dataset,team_stats,teams_elo,team_performance
 
 def expected_probability(elo_a,elo_b):
   return 1/(1+10**((elo_b-elo_a)/400))

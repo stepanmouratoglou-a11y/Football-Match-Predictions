@@ -81,7 +81,7 @@ def make_prediction(home_team,away_team,league):
                 "Losses":home_performance.get("Losses"),
                 "Goal Difference":home_performance.get("Goal Difference"),
                 "Goals Per Game":home_performance.get("Goals Per Game"),
-                "Conceded Per Game":away_performance.get("Goals Conceded Per Game")
+                "Conceded Per Game":home_performance.get("Goals Conceded Per Game")
                 }
 
                 away_data={

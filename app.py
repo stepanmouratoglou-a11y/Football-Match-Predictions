@@ -81,7 +81,7 @@ def make_prediction(home_team,away_team,league):
                 "Losses":home_performance.get("Losses"),
                 "Goal Difference":home_performance.get("Goal Difference"),
                 "Goals Per Game":home_performance.get("Goals Per Game"),
-
+                "Conceded Per Game":away_performance.get("Goals Conceded Per Game")
                 }
 
                 away_data={
@@ -94,6 +94,7 @@ def make_prediction(home_team,away_team,league):
                     "Losses":away_performance.get("Losses"),
                     "Goal Difference":away_performance.get("Goal Difference"),
                     "Goals Per Game":away_performance.get("Goals Per Game"),
+                    "Conceded Per Game":away_performance.get("Goals Conceded Per Game")
                 }
 
                 compared_data = pd.DataFrame({
@@ -101,7 +102,7 @@ def make_prediction(home_team,away_team,league):
                     away_team: away_data
                 })
 
-                st.bar_chart(data=compared_data)
+                st.bar_chart(data=compared_data,color=['green','red'],stack=False)
             elif response.status_code == 404:
                 st.error("Club Not Found")
             else:

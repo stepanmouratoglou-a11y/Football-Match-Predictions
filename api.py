@@ -55,6 +55,7 @@ def MakePrediction(match:MatchFeatures):
     home=team_profiles[match.home_team]
     away=team_profiles[match.away_team]
     elo_diff=home['ELO Rating']-away['ELO Rating']
+    points_diff=home['Total_Points']-away['Total_Points']
     features=[
         home['Days_Rest'],
         away['Days_Rest'],
@@ -76,7 +77,8 @@ def MakePrediction(match:MatchFeatures):
         away['Points_Last_5'],
         home['ELO Rating'],
         away['ELO Rating'],
-        elo_diff
+        elo_diff,
+        points_diff
         ]
     input_data=np.array([features])
     y_pred_rf=rf_model.predict_proba(input_data)

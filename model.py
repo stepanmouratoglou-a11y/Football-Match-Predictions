@@ -1,6 +1,6 @@
-import Preprocessing
-import rf_classifier
-import xgb_classifier
+from src import Preprocessing
+import src.rf_classifier as rf_classifier
+import src.xgb_classifier as xgb_classifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
@@ -15,7 +15,6 @@ def dataset(path,league):
     else:
         dataset=pd.read_csv(path).iloc[:,:23]
     dataset,team_stats,teams_elo,team_performance=Preprocessing.preprocess(dataset,league)
-    dataset['ELO_Diff']=dataset['Home_ELO_Score']-dataset['Away_ELO_Score']
 
     dataset=dataset.sort_values('Date')
     dataset=dataset.drop(columns=['Date','FTAG','FTHG','HTR','HS',
@@ -48,8 +47,8 @@ for league_name, file_path in leagues_config.items():
     for col in df.columns:
         print(col,end=", ")
     print()
-    joblib.dump(team_performances,f'Models/Team Performances {league_name}.pkl')
-
+    joblib.dump(team_performances,f'Performances/Team Performances {league_name}.pkl')
+    
     le=LabelEncoder()
     y_encoded=le.fit_transform(y)
     
@@ -83,6 +82,7 @@ for league_name, file_path in leagues_config.items():
         current_team_data[team]={
             'Team':team,
             'ELO Rating':teams_elo.get(team),
+            'Points_Last_5':team_data['Points_Last_5'],
             'Days_Rest':team_data['Days_Rest'],
             'Avg_Scored_Last_5':team_data['Avg_Scored_Last_5'],
             'Avg_Conceded_Last_5':team_data['Avg_Conceded_Last_5'],
@@ -90,18 +90,7 @@ for league_name, file_path in leagues_config.items():
             'Avg_Shots_Conceded_Last_5':team_data['Avg_Shots_Conceded_Last_5'],
             'Wins_Last_5':team_data['Wins_Last_5'],
             'Losses_Last_5':team_data['Losses_Last_5'],
-            'Total_Points':team_data['Total_Points'],
-            'Points_Last_5':team_data['Points_Last_5']
+            'Total_Points':team_data['Total_Points']
         }
-    if league_name=='Premier League':
-        joblib.dump(current_team_data,'Models/Clubs Data_PL.pkl')
-        print(f"Club Data of {league_name} saved")
-    elif league_name=='Greek Super League':
-        joblib.dump(current_team_data,'Models/Clubs Data_Greece.pkl')
-        print(f"Club Data of {league_name} saved")
-    else:
-        joblib.dump(current_team_data,f'Models/Clubs Data_{league_name}.pkl')
-        print(f"Club Data of {league_name} saved")
-    
-        
-
+    joblib.dump(current_team_data,f'Models/Clubs Data_{league_name}.pkl')
+    print(f"Club Data of {league_name} saved")

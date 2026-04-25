@@ -1,8 +1,10 @@
 from xgboost import XGBClassifier
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV,TimeSeriesSplit
 from sklearn.calibration import CalibratedClassifierCV
 
+
 def xgb_model(X_train,y_train):
+    tscv=TimeSeriesSplit(n_splits=5)
     classifier=XGBClassifier(learning_rate=0.01)
     xg_parameters={
     'n_estimators':[300,400,500],
@@ -13,6 +15,7 @@ def xgb_model(X_train,y_train):
     grid_search_xg=GridSearchCV(estimator=classifier,
                                 param_grid=xg_parameters,
                                 n_jobs=-1,
+                                cv=tscv,
                                 scoring='accuracy')
     grid_search_xg.fit(X_train,y_train)
 

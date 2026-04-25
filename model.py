@@ -60,7 +60,7 @@ for league_name, file_path in leagues_config.items():
     X_test = X_test[:, 2:]
    
 
-    rf_model = rf_classifier.rf_model(X_train, y_train)
+    rf_model = rf_classifier.rf_model(X_train, y_train,league_name)
     y_pred_rf = rf_classifier.make_prediction(rf_model, X_test)
     
     xgb_model=xgb_classifier.xgb_model(X_train, y_train)

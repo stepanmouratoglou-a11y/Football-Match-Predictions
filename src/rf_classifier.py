@@ -2,9 +2,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.model_selection import GridSearchCV
 
-def rf_model(X_train,y_train):
+def rf_model(X_train,y_train,league):
     """Here is the creation of the RF Classifier Model. This function returns the model"""
-    rf_classifier=RandomForestClassifier(criterion='entropy')
+    if league.lower()=='laliga':
+        rf_classifier=RandomForestClassifier(criterion='entropy',class_weight='balanced')
+    else:
+        rf_classifier=RandomForestClassifier(criterion='entropy')
     tscv=TimeSeriesSplit(n_splits=5)
     parameters = {
     'n_estimators': [100, 150,200],

@@ -43,7 +43,7 @@ execute_model:
     - git add .
     
     - echo "Committing and pushing..."
-    - git commit -m "Automated model and data update" || true
+    - git commit -m "Automated model and data update [skip ci]" || true
     - git push "https://oauth2:${GIT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:${CI_COMMIT_REF_NAME}
   artifacts:
     paths:

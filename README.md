@@ -62,16 +62,16 @@ Match Statistics (where available)
 * Away Team Points Last 5 Games
 * Total Points Difference
 * ELO Score Difference
-### The features above were used to train the respective models of the 4 Leagues.
+#### The features above were used to train the respective models of the 4 Leagues.
 
 ## Models
-### There are 2 models trained for each league. 
+#### There are 2 models trained for each league. 
 * Random Forest Classifier
 * XGBoost Classifier which is used to create the final Calibrated XGBoost model.
 #### *For the LaLiga predictions there are some changes regarding the random forest classifier (class_weight='balanced')*
 
 ## Streamlit App
-### The app.py represents a streamlit application where people can try the models and make predictions. 
+#### The app.py represents a streamlit application where people can try the models and make predictions. (https://football-match-predictions-hcqzmanuyp9ucvofuzpnqf.streamlit.app/)
 1. Choose a League of your preference
 2. Choose a Home Team
 3. Choose an Away Team

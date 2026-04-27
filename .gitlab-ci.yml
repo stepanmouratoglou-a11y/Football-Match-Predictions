@@ -40,7 +40,7 @@ execute_model:
     - git config --global user.name "GitLab CI Bot"
     
     - echo "Staging the updated files..."
-    - git add datasets/Cleaned_Data/ Models/ Performances/
+    - git add .
     
     - echo "Committing and pushing..."
     - git commit -m "Automated model and data update [skip ci]" || true

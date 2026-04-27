@@ -36,14 +36,14 @@ execute_model:
     
     - echo "Setting up Git to push changes..."
     - apt-get update && apt-get install -y git
-    - git config --global user.email "ci-bot@example.com"
+    - git config --global user.email "ci-bot@predict.com"
     - git config --global user.name "GitLab CI Bot"
     
     - echo "Staging the updated files..."
     - git add .
     
     - echo "Committing and pushing..."
-    - git commit -m "Automated model and data update [skip ci]" || true
+    - git commit -m "Automated model and data update" || true
     - git push "https://oauth2:${GIT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:${CI_COMMIT_REF_NAME}
   artifacts:
     paths:

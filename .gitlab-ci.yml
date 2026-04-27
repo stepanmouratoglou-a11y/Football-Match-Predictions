@@ -1,0 +1,56 @@
+image: python:3.10-slim
+
+stages:
+  - update_data
+  - run_model
+
+cache:
+  paths:
+    - .cache/pip
+
+fetch_datasets:
+  stage: update_data
+  script:
+    - echo "Downloading latest raw datasets..."
+    - apt-get update && apt-get install -y wget
+    - wget -O "datasets/Raw_Data/D1.csv" https://football-data.co.uk/mmz4281/2526/D1.csv
+    - wget -O "datasets/Raw_Data/E0 (1).csv" https://football-data.co.uk/mmz4281/2526/E0.csv
+    - wget -O "datasets/Raw_Data/G1.csv" https://football-data.co.uk/mmz4281/2526/G1.csv
+    - wget -O "datasets/Raw_Data/SP1.csv" https://football-data.co.uk/mmz4281/2526/SP1.csv
+  artifacts:
+    paths:
+      - datasets/Raw_Data/
+    expire_in: 1 day
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "push" 
+
+execute_model:
+  stage: run_model
+  script:
+    - echo "Installing dependencies..."
+    - pip install -r requirements.txt
+    
+    - echo "Running the prediction model..."
+    - python model.py
+    
+    - echo "Setting up Git to push changes..."
+    - apt-get update && apt-get install -y git
+    - git config --global user.email "ci-bot@example.com"
+    - git config --global user.name "GitLab CI Bot"
+    
+    - echo "Staging the updated files..."
+    - git add datasets/Cleaned_Data/ Models/ Performances/
+    
+    - echo "Committing and pushing..."
+    - git commit -m "Automated model and data update [skip ci]" || true
+    - git push "https://oauth2:${GIT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:${CI_COMMIT_REF_NAME}
+  artifacts:
+    paths:
+      - datasets/Cleaned_Data/
+      - Models/
+      - Performances/
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "push"

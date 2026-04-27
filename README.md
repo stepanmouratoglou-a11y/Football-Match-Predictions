@@ -1,5 +1,5 @@
 # **Football-Match-Predictions**
-### In this repository, I utilize datasets I got from football-data.co.uk (https://football-data.co.uk/mmz4281/2526/E0.csv) .The datasets contain data of all the Premier League, Bundesliga, LaLiga, Greek Super League matches played until this day.It contains a lot of categories that I explain below.Most of these categories are used in the feature engineering part (src/Preprocessing.py) in order to create more useful categories and after that, they are dropped do avoid data leakage.
+#### In this repository, I utilize datasets I got from football-data.co.uk (https://football-data.co.uk/mmz4281/2526/E0.csv) .The datasets contain data of all the Premier League, Bundesliga, LaLiga, Greek Super League matches played until this day.It contains a lot of categories that I explain below.Most of these categories are used in the feature engineering part (src/Preprocessing.py) in order to create more useful categories and after that, they are dropped do avoid data leakage.
 The raw data (datasets/Raw_Data/) contain lots of features, most of which are dropped. The features used to clean the data are the ones below.
 ### Explanation of the dataset categories as per football-data.co.uk:
 * Div = League Division

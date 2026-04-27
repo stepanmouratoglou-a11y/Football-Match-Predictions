@@ -41,7 +41,7 @@ for league_name, file_path in leagues_config.items():
     print("="*30)
     print(f"{league_name} model creation just started".upper())
     df,X,y,team_stats,teams_elo,team_performances=dataset(file_path, league_name)
-    df.to_csv(f'datasets/Cleaned_Data/{league_name.lower().replace(' ','_')}_cleaned.csv')
+    df.to_csv(f'datasets/Cleaned_Data/{league_name.lower().replace(" ","_")}_cleaned.csv')
     
     print()
     for col in df.columns:
@@ -72,7 +72,6 @@ for league_name, file_path in leagues_config.items():
     joblib.dump(xgb_model,f'Models/XGBClassifier_{league_name}.pkl')
     print(f'(Calibrated) XG Boost Model of {league_name.upper()} saved successfully')
 
-    
     
     all_teams=df['HomeTeam'].unique()
     current_team_data={}

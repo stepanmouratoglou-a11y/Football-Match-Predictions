@@ -44,7 +44,7 @@ execute_model:
     
     - echo "Committing and pushing..."
     - git commit -m "Automated model and data update [skip ci]" || true
-    - git push https://${GITHUB_PAT}@github.com/stepanmouratoglou-a11y/Football_Match_Predictions.git HEAD:${CI_COMMIT_REF_NAME}
+    - git push https://${GITHUB_PAT}@github.com/stepanmouratoglou-a11y/Football-Match-Predictions.git HEAD:${CI_COMMIT_REF_NAME}
   artifacts:
     paths:
       - datasets/Cleaned_Data/

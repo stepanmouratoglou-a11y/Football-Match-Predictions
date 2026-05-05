@@ -44,7 +44,7 @@ execute_model:
     
     - echo "Committing and pushing..."
     - git commit -m "Automated model and data update [skip ci]" || true
-    - git pull https://${GITHUB_PAT}@github.com/stepanmouratoglou-a11y/Football-Match-Predictions.git ${CI_COMMIT_REF_NAME} --rebase
+    - git pull https://${GITHUB_PAT}@github.com/stepanmouratoglou-a11y/Football-Match-Predictions.git ${CI_COMMIT_REF_NAME} --rebase -X theirs
     - git push https://${GITHUB_PAT}@github.com/stepanmouratoglou-a11y/Football-Match-Predictions.git HEAD:${CI_COMMIT_REF_NAME}
   artifacts:
     paths:

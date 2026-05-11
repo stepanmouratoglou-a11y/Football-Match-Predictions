@@ -21,9 +21,9 @@ app=FastAPI(title='Match Predictions',description='This app predicts the results
 
 
 def draw_filter(model):
-  DRAW_THRESHOLD=0.27
-  DRAW_PENALTY=0.6
-  HOME_AWAY_BONUS=0.2
+  DRAW_THRESHOLD=0.3
+  DRAW_PENALTY=0.7
+  HOME_AWAY_BONUS=0.15
 
   filtered=model.copy()
 

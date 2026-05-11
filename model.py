@@ -47,6 +47,7 @@ for league_name, file_path in leagues_config.items():
     for col in df.columns:
         print(col,end=", ")
     print()
+    
     joblib.dump(team_performances,f'Performances/Team Performances {league_name}.pkl')
     
     le=LabelEncoder()

@@ -8,3 +8,4 @@ numpy
 pandas
 pyarrow
 python-dotenv
+mlflow

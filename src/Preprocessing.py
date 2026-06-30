@@ -4,9 +4,9 @@ def __init__():
    return
 def preprocess(dataset,league):
     try:
-        dataset=dataset.drop(columns=['Div','HR','AR','Time','Referee'])
+        dataset=dataset.drop(columns=['Div','HR','AR','Time','Referee'],errors='ignore')
     except:
-       dataset=dataset.drop(columns=['Div','HR','AR','Time'])
+       dataset=dataset.drop(columns=['Div','HR','AR','Time'],errors='ignore')
 
     
     dataset['Date'] = pd.to_datetime(dataset['Date'], format='%d/%m/%Y')

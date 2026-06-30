@@ -10,6 +10,6 @@ __pycache__/
 Notebooks/
 Website_ignore/
 
-
-
+*.db
+mlruns/
 .env

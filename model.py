@@ -21,8 +21,8 @@ def dataset(path,league):
                                         'AS','Day','Month','HY','AY',
                                         'HTHG','HTAG','HST','AST',
                                         'HF','AF','HC','AC'])
-    X=dataset.drop(columns=['FTR']).values
-    y=dataset['FTR'].values
+    X=dataset.drop(columns=['FTR'])
+    y=dataset['FTR']
 
 
     return dataset,X,y,team_stats,teams_elo,team_performance
@@ -54,17 +54,17 @@ for league_name, file_path in leagues_config.items():
     y_encoded=le.fit_transform(y)
     
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y_encoded, test_size=0.2, shuffle=False
+        X, y_encoded, test_size=0.2, shuffle=False,random_state=42
     )
     
-    X_train = X_train[:, 2:]
-    X_test = X_test[:, 2:]
+    X_train = X_train.drop(columns=['HomeTeam','AwayTeam'])
+    X_test = X_test.drop(columns=['HomeTeam','AwayTeam'])
    
 
     rf_model = rf_classifier.rf_model(X_train, y_train,league_name)
     y_pred_rf = rf_classifier.make_prediction(rf_model, X_test)
     
-    xgb_model=xgb_classifier.xgb_model(X_train, y_train)
+    xgb_model=xgb_classifier.xgb_model(X_train, y_train,league_name)
     y_pred_xgb=xgb_classifier.make_prediction(xgb_model, X_test)
     
     
